@@ -1,0 +1,15 @@
+//export * as nombreController from './nombre.controller';
+export * as adminController from './admin.controller';
+export * as authController from './auth.controller';
+export * as categoryController from './category.controller';
+export * as clientController from './client.controller';
+export * as ordersController from './orders.controller';
+export * as paymentController from './payment.controller';
+export * as productsController from './products.controller';
+export * as retailController from './retail.controller'
+export * as roleController from './role.controller';
+export * as uploadController from './upload.controller';
+export * as userController from './user.controller';
+export * as userAccessController from './userAccess.controller';
+export * as subscriberController from './subscriber.controller';
+export * as sizeController from './size.controller'

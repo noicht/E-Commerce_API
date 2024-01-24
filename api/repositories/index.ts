@@ -1,0 +1,13 @@
+//export { nombreRepo } from './nombre.repo';
+export { categoryRepo } from './category.repo';
+export { clientRepo } from './client.repo';
+export { ordersRepo } from './orders.repo';
+export { paymentRepo } from './payment.repo';
+export { productsRepo } from './products.repo';
+export { retailRepo } from './retail.repo';
+export { roleRepo } from "./role.repo";
+export { uploadRepo } from './upload.repo';
+export { userRepo } from './user.repo';
+export { userAccessRepo } from './userAccess.repo';
+export { subscriberRepo } from './subscriber.repo'
+export { sizeRepo } from './size.repo'

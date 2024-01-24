@@ -1,0 +1,23 @@
+image: atlassian/default-image:3
+
+clone:
+  depth: full
+
+pipelines:
+  branches:
+    test:   
+      - step:
+          name: Copiando Archivos
+          script:
+            - mkdir -p ~/.ssh
+            - cat known_hosts_stg_dev >> ~/.ssh/known_hosts
+            - (umask  077 ; echo $ACCESS_KEY_DEV_TEST | base64 --decode > ~/.ssh/id_rsa) 
+            - ssh -i ~/.ssh/id_rsa $DEFAULT_HOST_DEV_TEST "cd /var/www/html/test/$FOLDER_PROJECT; git pull && docker build --no-cache -t $CONTAINER_IMAGE_NAME-test:$BITBUCKET_COMMIT . && docker stop $CONTAINER_IMAGE_NAME-test-container || true && docker rm $CONTAINER_IMAGE_NAME-test-container || true && docker run -d --name $CONTAINER_IMAGE_NAME-test-container --network ecommerce-test -p $DOCKER_PORT_TEST:4000 -v ecommerceApi-test:/app/dist/public $CONTAINER_IMAGE_NAME-test:$BITBUCKET_COMMIT;"
+    dev:   
+      - step:
+          name: Copiando Archivos
+          script:
+            - mkdir -p ~/.ssh
+            - cat known_hosts_stg_dev >> ~/.ssh/known_hosts
+            - (umask  077 ; echo $ACCESS_KEY_DEV_TEST | base64 --decode > ~/.ssh/id_rsa) 
+            - ssh -i ~/.ssh/id_rsa $DEFAULT_HOST_DEV_TEST "cd /var/www/html/dev/$FOLDER_PROJECT; git pull && docker build --no-cache -t $CONTAINER_IMAGE_NAME-dev:$BITBUCKET_COMMIT . && docker stop $CONTAINER_IMAGE_NAME-dev-container || true && docker rm $CONTAINER_IMAGE_NAME-dev-container || true && docker run -d --name $CONTAINER_IMAGE_NAME-dev-container --network ecommerce-dev -p $DOCKER_PORT_DEV:4000 -v ecommerceApi-dev:/app/dist/public $CONTAINER_IMAGE_NAME-dev:$BITBUCKET_COMMIT;"
